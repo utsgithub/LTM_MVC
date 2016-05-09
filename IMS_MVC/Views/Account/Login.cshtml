@@ -8,11 +8,20 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
+            <h4>Use a local account to log in.</h4>
+            <hr />
+            @if (Request.IsAuthenticated)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <strong>Warning! You may don't have the permission. Please go back to the @Html.ActionLink("Index", "Index", "Home") Page or use the right account to login again.</strong>
+                </div>
+            }
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
+
+
                 @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
+
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
@@ -57,8 +66,8 @@
             <hr />
             <div>
                 <p>
-                    eng1@asp.net<br/>
-                    man1@asp.net<br/>
+                    eng1@asp.net<br />
+                    man1@asp.net<br />
                     acc1@asp.net
                 </p>
             </div>

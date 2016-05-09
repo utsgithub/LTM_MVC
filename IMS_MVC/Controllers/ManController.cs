@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace IMS_MVC.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class ManController : Controller
     {
         // GET: Man

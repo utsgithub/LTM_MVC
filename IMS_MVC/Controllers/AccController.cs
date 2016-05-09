@@ -10,6 +10,7 @@ using IMS_MVC.Models;
 
 namespace IMS_MVC.Controllers
 {
+    [Authorize(Roles = "Accountant")]
     public class AccController : Controller
     {
         private ExtraDbContext db = new ExtraDbContext();

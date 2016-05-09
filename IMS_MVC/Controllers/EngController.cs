@@ -10,7 +10,7 @@ using IMS_MVC.Models;
 
 namespace IMS_MVC.Controllers
 {
-
+    [Authorize(Roles = "SiteEngineer")]
     public class EngController : Controller
     {
         private ExtraDbContext db = new ExtraDbContext();

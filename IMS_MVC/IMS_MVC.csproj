@@ -171,10 +171,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\DistrictsController.cs" />
+    <Compile Include="Controllers\EngController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IntInfoesController.cs" />
     <Compile Include="Controllers\IntTypesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -290,6 +292,17 @@
     <Content Include="Views\Acc\acc_dashboard.cshtml" />
     <Content Include="Views\Acc\Acc_List_Users.cshtml" />
     <Content Include="Views\Acc\acc_edit_district.cshtml" />
+    <Content Include="Views\Man\man_edit_intervention.cshtml" />
+    <Content Include="Views\Man\man_list_intervention.cshtml" />
+    <Content Include="Views\Eng\eng_create_client.cshtml" />
+    <Content Include="Views\Eng\eng_create_intervention.cshtml" />
+    <Content Include="Views\Eng\eng_dashboard.cshtml" />
+    <Content Include="Views\Eng\eng_detail_client.cshtml" />
+    <Content Include="Views\Eng\eng_detail_intervention.cshtml" />
+    <Content Include="Views\Eng\eng_edit_intervention.cshtml" />
+    <Content Include="Views\Eng\eng_list_client.cshtml" />
+    <Content Include="Views\Eng\eng_list_intervention.cshtml" />
+    <Content Include="Views\Eng\eng_list_int_via_client.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

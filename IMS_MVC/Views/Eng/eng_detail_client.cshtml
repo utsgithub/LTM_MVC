@@ -1,0 +1,41 @@
+﻿@model IMS_MVC.Models.Client
+
+@{
+    ViewBag.Title = "Client Information";
+}
+
+<h2>Client Information</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descriptive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descriptive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DistrictId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DistrictId)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "eng_list_client")
+    @Html.ActionLink("Go to Interventions List", "eng_list_int_via_client")
+</p>

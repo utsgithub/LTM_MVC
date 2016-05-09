@@ -17,7 +17,7 @@ namespace IMS_MVC.Controllers
         // GET: Eng
         public ActionResult Index()
         {
-            Response.Redirect("eng_dashboard");
+            Response.Redirect("eng/eng_dashboard");
             return View();
         }
 

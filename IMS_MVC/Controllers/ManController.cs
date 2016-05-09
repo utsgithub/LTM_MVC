@@ -11,7 +11,7 @@ namespace IMS_MVC.Controllers
         // GET: Man
         public ActionResult Index()
         {
-            Response.Redirect("man_list_intervention");
+            Response.Redirect("man/man_list_intervention");
             return View();
         }
 

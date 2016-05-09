@@ -21,7 +21,7 @@ namespace IMS_MVC.Models
         [Required]
         public int UserId { get; set; }
         public DateTime IntDate { get; set; }
-        public int Status { get; set; }
+        public string Status { get; set; }
         public string Comments { get; set; }
         public int Reamaining { get; set; }
         public DateTime VisitDate { get; set; }

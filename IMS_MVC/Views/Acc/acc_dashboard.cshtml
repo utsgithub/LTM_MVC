@@ -12,8 +12,7 @@
             <div class="caption">
                 <h3>User List</h3>
                 <p>
-                    <a href="acc_list_users.aspx" class="btn btn-primary">Go to</a>
-                    @Html.ActionLink("Go To", "acc_list_users", "Acc")
+                    @Html.ActionLink("Go To", "acc_list_users", "Acc", new { }, new { @class= "btn btn-primary" })
                 </p>
             </div>
         </div>
@@ -24,7 +23,7 @@
             <div class="caption">
                 <h3>Report</h3>
                 <p>
-                    <a href="acc_list_report.aspx" class="btn btn-primary">Go to</a>
+                    @Html.ActionLink("Go To", "acc_list_report", "Acc", new { }, new { @class = "btn btn-primary" })
                 </p>
             </div>
         </div>

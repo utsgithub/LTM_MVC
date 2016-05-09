@@ -14,20 +14,32 @@ namespace IMS_MVC.Controllers
     {
         private ExtraDbContext db = new ExtraDbContext();
         // GET: Acc
-        public ActionResult Acc_Dashboard()
+        public ActionResult index()
+        {
+            Response.Redirect("acc/acc_dashboard");
+            return View();
+        }
+
+        public ActionResult acc_dashboard()
         {
             return View();
         }
 
+        public ActionResult acc_list_report()
+        {
+            return View();
+        }
         //Todo: Connect User table
         //Todo: Connect District table
-        public ActionResult Acc_List_Users() {
-            return View(db.Users.Where(x=>x.UserType!="Accountant").ToList());
+        public ActionResult Acc_List_Users()
+        {
+            return View(db.Users.Where(x => x.UserType != "Accountant").ToList());
         }
 
         public ActionResult acc_edit_district(int? id)
         {
-            if (id == null) {
+            if (id == null)
+            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             User user = db.Users.Find(id);
@@ -40,15 +52,11 @@ namespace IMS_MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult acc_edit_district([Bind(Include = "UserType")] User user)
+        public ActionResult acc_edit_district(int DistrictId, int Id)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Acc_List_Users");
-            }
-            return View(user);
+            db.Users.Single(x => x.Id == Id).DistrictId = DistrictId;
+            db.SaveChanges();
+            return RedirectToAction("Acc_List_Users");
         }
     }
 }

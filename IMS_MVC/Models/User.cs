@@ -17,9 +17,6 @@ namespace IMS_MVC.Models
         [Required]
         public int MaxCost { get; set; }
         [Required]
-        [Display(Name ="User Type")]
-        public string UserType { get; set; }
-        [Required]
         public string AspNetUserId { get; set; }
     }
 }

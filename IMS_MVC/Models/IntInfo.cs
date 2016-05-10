@@ -19,7 +19,8 @@ namespace IMS_MVC.Models
         [Required]
         public int SetCost { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public string AspNetUserId { get; set; }
+        [Display(Name ="Intervention Date")]
         public DateTime IntDate { get; set; }
         public string Status { get; set; }
         public string Comments { get; set; }

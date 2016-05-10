@@ -75,7 +75,7 @@ namespace IMS_MVC.Controllers
         }
         public ActionResult eng_list_client()
         {
-            return View();
+            return View(db.Clients.ToList());
         }
         public ActionResult eng_list_intervention()
         {

@@ -34,7 +34,7 @@ namespace IMS_MVC.Controllers
         //Todo: Connect District table
         public ActionResult Acc_List_Users()
         {
-            return View(db.Users.Where(x => x.UserType != "Accountant").ToList());
+            return View(db.Users.ToList());
         }
 
         public ActionResult acc_edit_district(int? id)

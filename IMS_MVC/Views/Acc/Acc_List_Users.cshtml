@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IMS_MVC.Models.User>
+﻿@model IEnumerable<IMS_MVC.Models.ViewUser>
 @{
     ViewBag.Title = "User List";
 }
@@ -6,46 +6,21 @@
 <h2>User List</h2>
 <table class="table table-bordered table-hover table-striped">
     <tr>
+        <th>ID</th>
         <th>User Name</th>
         <th>District</th>
-        <th class="none">
-            @Html.DisplayNameFor(model => model.DistrictId)
-        </th>
-        <th class="none">
-            @Html.DisplayNameFor(model => model.MaxHours)
-        </th>
-        <th class="none">
-            @Html.DisplayNameFor(model => model.MaxCost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserType)
-        </th>
-        <th class="none">
-            @Html.DisplayNameFor(model => model.AspNetUserId)
-        </th>
+        <th>Role</th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td></td>
-            <td></td>
-            <td class="none">
-                @Html.DisplayFor(modelItem => item.DistrictId)
-            </td>
-            <td class="none">
-                @Html.DisplayFor(modelItem => item.MaxHours)
-            </td>
-            <td class="none">
-                @Html.DisplayFor(modelItem => item.MaxCost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserType)
-            </td>
-            <td class="none">
-                @Html.DisplayFor(modelItem => item.AspNetUserId)
-            </td>
+            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+            <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+            <td>@Html.DisplayFor(modelItem => item.DistrictName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Role)</td>
+
             <td>
                 @Html.ActionLink("Change District", "acc_edit_district", new { id = item.Id })
             </td>

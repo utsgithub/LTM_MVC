@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IMS_MVC.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace IMS_MVC.Controllers
 {
@@ -75,7 +77,9 @@ namespace IMS_MVC.Controllers
         }
         public ActionResult eng_list_client()
         {
-            return View(db.Clients.ToList());
+            string userid = User.Identity.GetUserId();
+            User user = db.Users.Where(x => x.AspNetUserId == userid).First();
+            return View(db.Clients.Where(x => x.DistrictId==user.DistrictId));
         }
         public ActionResult eng_list_intervention()
         {

@@ -17,7 +17,8 @@ namespace IMS_MVC.Controllers
         // GET: IntInfoes
         public ActionResult Index()
         {
-            return View(db.IntInfos.ToList());
+            var intInfos = db.IntInfos.Include(i => i.Client).Include(i => i.IntType).Include(i => i.User);
+            return View(intInfos.ToList());
         }
 
         // GET: IntInfoes/Details/5
@@ -38,6 +39,9 @@ namespace IMS_MVC.Controllers
         // GET: IntInfoes/Create
         public ActionResult Create()
         {
+            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Name");
+            ViewBag.IntTypeId = new SelectList(db.IntTypes, "Id", "Name");
+            ViewBag.UserId = new SelectList(db.Users, "Id", "AspNetUserId");
             return View();
         }
 
@@ -46,7 +50,7 @@ namespace IMS_MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,IntTypeId,ClientId,SetLabour,SetCost,UserId,IntDate,Status,Comments,Reamaining,VisitDate,ApprovedByUserId")] IntInfo intInfo)
+        public ActionResult Create([Bind(Include = "Id,IntTypeId,ClientId,SetLabour,SetCost,AspNetUserId,UserId,IntDate,Status,Comments,Reamaining,VisitDate,ApprovedByUserId")] IntInfo intInfo)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +59,9 @@ namespace IMS_MVC.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Name", intInfo.ClientId);
+            ViewBag.IntTypeId = new SelectList(db.IntTypes, "Id", "Name", intInfo.IntTypeId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "AspNetUserId", intInfo.UserId);
             return View(intInfo);
         }
 
@@ -70,6 +77,9 @@ namespace IMS_MVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Name", intInfo.ClientId);
+            ViewBag.IntTypeId = new SelectList(db.IntTypes, "Id", "Name", intInfo.IntTypeId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "AspNetUserId", intInfo.UserId);
             return View(intInfo);
         }
 
@@ -78,7 +88,7 @@ namespace IMS_MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,IntTypeId,ClientId,SetLabour,SetCost,UserId,IntDate,Status,Comments,Reamaining,VisitDate,ApprovedByUserId")] IntInfo intInfo)
+        public ActionResult Edit([Bind(Include = "Id,IntTypeId,ClientId,SetLabour,SetCost,AspNetUserId,UserId,IntDate,Status,Comments,Reamaining,VisitDate,ApprovedByUserId")] IntInfo intInfo)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +96,9 @@ namespace IMS_MVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Name", intInfo.ClientId);
+            ViewBag.IntTypeId = new SelectList(db.IntTypes, "Id", "Name", intInfo.IntTypeId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "AspNetUserId", intInfo.UserId);
             return View(intInfo);
         }
 

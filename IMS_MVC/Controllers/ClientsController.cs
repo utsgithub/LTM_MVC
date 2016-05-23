@@ -17,7 +17,8 @@ namespace IMS_MVC.Controllers
         // GET: Clients
         public ActionResult Index()
         {
-            return View(db.Clients.ToList());
+            var clients = db.Clients.Include(c => c.District);
+            return View(clients.ToList());
         }
 
         // GET: Clients/Details/5
@@ -38,6 +39,7 @@ namespace IMS_MVC.Controllers
         // GET: Clients/Create
         public ActionResult Create()
         {
+            ViewBag.DistrictId = new SelectList(db.Districts, "Id", "DistrictName");
             return View();
         }
 
@@ -55,6 +57,7 @@ namespace IMS_MVC.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.DistrictId = new SelectList(db.Districts, "Id", "DistrictName", client.DistrictId);
             return View(client);
         }
 
@@ -70,6 +73,7 @@ namespace IMS_MVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.DistrictId = new SelectList(db.Districts, "Id", "DistrictName", client.DistrictId);
             return View(client);
         }
 
@@ -86,6 +90,7 @@ namespace IMS_MVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.DistrictId = new SelectList(db.Districts, "Id", "DistrictName", client.DistrictId);
             return View(client);
         }
 

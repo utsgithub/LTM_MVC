@@ -12,10 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.IntTypeId)
+            @Html.DisplayNameFor(model => model.Client.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClientId)
+            @Html.DisplayNameFor(model => model.IntType.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SetLabour)
@@ -24,7 +27,7 @@
             @Html.DisplayNameFor(model => model.SetCost)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayNameFor(model => model.AspNetUserId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IntDate)
@@ -50,10 +53,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.IntTypeId)
+            @Html.DisplayFor(modelItem => item.Client.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ClientId)
+            @Html.DisplayFor(modelItem => item.IntType.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SetLabour)
@@ -62,7 +68,7 @@
             @Html.DisplayFor(modelItem => item.SetCost)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserId)
+            @Html.DisplayFor(modelItem => item.AspNetUserId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IntDate)

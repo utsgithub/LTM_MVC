@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using Microsoft.AspNet.Identity;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -15,26 +14,80 @@ namespace IMS_MVC.Controllers
     public class ManController : Controller
     {
         private ExtraDbContext db = new ExtraDbContext();
+
         // GET: Man
         public ActionResult Index()
         {
-
-            Response.Redirect("man/man_list_intervention");
-            return View();
+            return RedirectToAction("man_list_intervention");
         }
 
-
-        public ActionResult man_edit_intervention()
-        {
-            return View();
-        }
-
-        // Todo: propose;
-        // Todo: UserID;
         public ActionResult man_list_intervention()
         {
-            //Todo: User ID
-            return View(db.IntInfos.Where(x => x.Status== "Proposed").ToList());
+            var intInfos = db.IntInfos.Include(i => i.Client).Include(i => i.IntType).Include(i => i.User);
+            return View(intInfos.Where(x=>x.Status== "Proposed").ToList());
+        }
+
+        public ActionResult man_edit_intervention(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IntInfo intInfo = db.IntInfos.Find(id);
+            if (intInfo == null)
+            {
+                return HttpNotFound();
+            }
+            return View(intInfo);
+        }
+
+        // POST: Man/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,IntTypeId,ClientId,SetLabour,SetCost,AspNetUserId,IntDate,Status,Comments,Reamaining,VisitDate,ApprovedByUserId")] IntInfo intInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(intInfo).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Name", intInfo.ClientId);
+            ViewBag.IntTypeId = new SelectList(db.IntTypes, "Id", "Name", intInfo.IntTypeId);
+            return View(intInfo);
+        }
+
+        public ActionResult man_status_approve(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            db.IntInfos.Single(x => x.Id == id).Status = "Approved";
+            db.SaveChanges();
+            return RedirectToAction("man_edit_intervention", new { id = id });
+        }
+
+        public ActionResult man_status_cancel(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            db.IntInfos.Single(x => x.Id == id).Status = "Cancelled";
+            db.SaveChanges();
+            return RedirectToAction("man_edit_intervention", new { id = id });
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

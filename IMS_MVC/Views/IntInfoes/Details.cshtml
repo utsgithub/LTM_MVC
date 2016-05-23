@@ -11,19 +11,27 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.IntTypeId)
+            @Html.DisplayNameFor(model => model.Client.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.IntTypeId)
+            @Html.DisplayFor(model => model.Client.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ClientId)
+            @Html.DisplayNameFor(model => model.IntType.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ClientId)
+            @Html.DisplayFor(model => model.IntType.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.AspNetUserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.AspNetUserId)
         </dd>
 
         <dt>
@@ -43,11 +51,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayNameFor(model => model.AspNetUserId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserId)
+            @Html.DisplayFor(model => model.AspNetUserId)
         </dd>
 
         <dt>

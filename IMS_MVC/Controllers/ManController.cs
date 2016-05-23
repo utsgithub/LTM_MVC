@@ -27,6 +27,12 @@ namespace IMS_MVC.Controllers
             return View(intInfos.Where(x=>x.Status== "Proposed").ToList());
         }
 
+        public ActionResult eng_create_client()
+        {
+            ViewBag.DistrictId = new SelectList(db.Districts, "Id", "DistrictName");
+            return View();
+        }
+
         public ActionResult man_edit_intervention(int? id)
         {
             if (id == null)

@@ -213,6 +213,14 @@
     <Compile Include="Migrations\201605231311325_05232311.Designer.cs">
       <DependentUpon>201605231311325_05232311.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605231814471_05240414.cs" />
+    <Compile Include="Migrations\201605231814471_05240414.Designer.cs">
+      <DependentUpon>201605231814471_05240414.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605231818485_05240418.cs" />
+    <Compile Include="Migrations\201605231818485_05240418.Designer.cs">
+      <DependentUpon>201605231818485_05240418.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Client.cs" />
@@ -235,6 +243,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="HtmlPage1.html" />
     <Content Include="Images\1461091232_user-admin.png" />
     <Content Include="Images\Distributor-report-icon.png" />
     <Content Include="Images\icon-account-change-password.png" />
@@ -319,11 +328,6 @@
     <Content Include="Views\Eng\eng_list_intervention.cshtml" />
     <Content Include="Views\Eng\eng_list_int_via_client.cshtml" />
     <Content Include="Views\Acc\acc_list_report.cshtml" />
-    <Content Include="Views\Clients\Create.cshtml" />
-    <Content Include="Views\Clients\Delete.cshtml" />
-    <Content Include="Views\Clients\Details.cshtml" />
-    <Content Include="Views\Clients\Edit.cshtml" />
-    <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\Man\man_edit_intervention.cshtml" />
     <Content Include="Views\Man\Edit.cshtml" />
     <Content Include="Views\Man\man_list_intervention.cshtml" />
@@ -332,6 +336,11 @@
     <Content Include="Views\IntInfoes\Details.cshtml" />
     <Content Include="Views\IntInfoes\Edit.cshtml" />
     <Content Include="Views\IntInfoes\Index.cshtml" />
+    <Content Include="Views\Clients\Create.cshtml" />
+    <Content Include="Views\Clients\Delete.cshtml" />
+    <Content Include="Views\Clients\Details.cshtml" />
+    <Content Include="Views\Clients\Edit.cshtml" />
+    <Content Include="Views\Clients\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -366,6 +375,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605231311325_05232311.resx">
       <DependentUpon>201605231311325_05232311.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605231814471_05240414.resx">
+      <DependentUpon>201605231814471_05240414.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605231818485_05240418.resx">
+      <DependentUpon>201605231818485_05240418.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

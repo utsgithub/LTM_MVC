@@ -7,89 +7,41 @@
 <h2>Interventions List</h2>
 
 <p>
-    @Html.ActionLink("Create New", "eng_create_intervention")
+    @Html.ActionLink("Create New", "eng_create_intervention", new { id= ViewBag.ViewID})
 </p>
 
-<table class="table">
+<table class="table table-bordered table-hover table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.IntTypeId)
+            @Html.DisplayNameFor(model => model.IntType.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClientId)
+            @Html.DisplayNameFor(model => model.Client.Name)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.SetLabour)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SetCost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.IntDate)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Comments)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Reamaining)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VisitDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ApprovedByUserId)
-        </th>
-        <th></th>*@
+        <th>@Html.DisplayNameFor(model => model.Status)</th>
+
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IntTypeId)
+                @Html.ActionLink(item.IntType.Name, "eng_detail_intervention", new { id = item.Id })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ClientId)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.SetLabour)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SetCost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.IntDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reamaining)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VisitDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApprovedByUserId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>*@
         </tr>
     }
 
 </table>
+

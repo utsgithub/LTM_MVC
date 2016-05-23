@@ -18,25 +18,21 @@
             @Html.DisplayNameFor(model => model.Descriptive)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DistrictId)
+            @Html.DisplayNameFor(model => model.District.DistrictName)
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.ActionLink(item.Name, "eng_detail_client", new { id = item.Id })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Descriptive)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DistrictId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "eng_detail_client", new { id = item.Id })
+                @Html.DisplayFor(modelItem => item.District.DistrictName)
             </td>
         </tr>
     }

@@ -11,6 +11,7 @@ namespace IMS_MVC.Models
         [Required]
         public int Id { get; set; }
         [Required]
+        [Display(Name = "District Name")]
         public string DistrictName { get; set; }
     }
 }

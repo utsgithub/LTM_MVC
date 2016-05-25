@@ -15,6 +15,5 @@ namespace IMS_MVC.Models
         public DbSet<IntInfo> IntInfos { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<District> Districts { get; set; }
-        
     }
 }

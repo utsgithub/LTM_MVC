@@ -169,15 +169,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ClientsController.cs" />
-    <Compile Include="Controllers\DistrictsController.cs" />
     <Compile Include="Controllers\EngController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IntInfoesController.cs" />
-    <Compile Include="Controllers\IntTypesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -197,6 +192,34 @@
     <Compile Include="Migrations\201605100716031_05101715.Designer.cs">
       <DependentUpon>201605100716031_05101715.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605110939489_05111939.cs" />
+    <Compile Include="Migrations\201605110939489_05111939.Designer.cs">
+      <DependentUpon>201605110939489_05111939.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605110951506_05111951.cs" />
+    <Compile Include="Migrations\201605110951506_05111951.Designer.cs">
+      <DependentUpon>201605110951506_05111951.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605231310055_05232309.cs" />
+    <Compile Include="Migrations\201605231310055_05232309.Designer.cs">
+      <DependentUpon>201605231310055_05232309.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605231311325_05232311.cs" />
+    <Compile Include="Migrations\201605231311325_05232311.Designer.cs">
+      <DependentUpon>201605231311325_05232311.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605231814471_05240414.cs" />
+    <Compile Include="Migrations\201605231814471_05240414.Designer.cs">
+      <DependentUpon>201605231814471_05240414.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605231818485_05240418.cs" />
+    <Compile Include="Migrations\201605231818485_05240418.Designer.cs">
+      <DependentUpon>201605231818485_05240418.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605251013195_05252012.cs" />
+    <Compile Include="Migrations\201605251013195_05252012.Designer.cs">
+      <DependentUpon>201605251013195_05252012.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Client.cs" />
@@ -212,12 +235,14 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ims_mvc.sql" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="HtmlPage1.html" />
     <Content Include="Images\1461091232_user-admin.png" />
     <Content Include="Images\Distributor-report-icon.png" />
     <Content Include="Images\icon-account-change-password.png" />
@@ -274,36 +299,9 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\IntInfoes\Create.cshtml" />
-    <Content Include="Views\IntInfoes\Delete.cshtml" />
-    <Content Include="Views\IntInfoes\Details.cshtml" />
-    <Content Include="Views\IntInfoes\Edit.cshtml" />
-    <Content Include="Views\IntInfoes\Index.cshtml" />
-    <Content Include="Views\IntTypes\Create.cshtml" />
-    <Content Include="Views\IntTypes\Delete.cshtml" />
-    <Content Include="Views\IntTypes\Details.cshtml" />
-    <Content Include="Views\IntTypes\Edit.cshtml" />
-    <Content Include="Views\IntTypes\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Clients\Create.cshtml" />
-    <Content Include="Views\Clients\Delete.cshtml" />
-    <Content Include="Views\Clients\Details.cshtml" />
-    <Content Include="Views\Clients\Edit.cshtml" />
-    <Content Include="Views\Clients\Index.cshtml" />
-    <Content Include="Views\Districts\Create.cshtml" />
-    <Content Include="Views\Districts\Delete.cshtml" />
-    <Content Include="Views\Districts\Details.cshtml" />
-    <Content Include="Views\Districts\Edit.cshtml" />
-    <Content Include="Views\Districts\Index.cshtml" />
     <Content Include="Views\Acc\acc_dashboard.cshtml" />
     <Content Include="Views\Acc\Acc_List_Users.cshtml" />
     <Content Include="Views\Acc\acc_edit_district.cshtml" />
-    <Content Include="Views\Man\man_edit_intervention.cshtml" />
-    <Content Include="Views\Man\man_list_intervention.cshtml" />
     <Content Include="Views\Eng\eng_create_client.cshtml" />
     <Content Include="Views\Eng\eng_create_intervention.cshtml" />
     <Content Include="Views\Eng\eng_dashboard.cshtml" />
@@ -314,10 +312,10 @@
     <Content Include="Views\Eng\eng_list_intervention.cshtml" />
     <Content Include="Views\Eng\eng_list_int_via_client.cshtml" />
     <Content Include="Views\Acc\acc_list_report.cshtml" />
+    <Content Include="Views\Man\man_edit_intervention.cshtml" />
+    <Content Include="Views\Man\man_list_intervention.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -338,6 +336,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605100716031_05101715.resx">
       <DependentUpon>201605100716031_05101715.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605110939489_05111939.resx">
+      <DependentUpon>201605110939489_05111939.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605110951506_05111951.resx">
+      <DependentUpon>201605110951506_05111951.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605231310055_05232309.resx">
+      <DependentUpon>201605231310055_05232309.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605231311325_05232311.resx">
+      <DependentUpon>201605231311325_05232311.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605231814471_05240414.resx">
+      <DependentUpon>201605231814471_05240414.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605231818485_05240418.resx">
+      <DependentUpon>201605231818485_05240418.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605251013195_05252012.resx">
+      <DependentUpon>201605251013195_05252012.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

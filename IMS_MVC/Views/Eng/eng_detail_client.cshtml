@@ -5,9 +5,17 @@
 }
 
 <h2>Client Information</h2>
-
+<hr />
 <div>
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.District.DistrictName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.District.DistrictName)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -24,18 +32,11 @@
             @Html.DisplayFor(model => model.Descriptive)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DistrictId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DistrictId)
-        </dd>
-
     </dl>
 </div>
-
 <p>
-    @Html.ActionLink("Back to List", "eng_list_client")
-    @Html.ActionLink("Go to Interventions List", "eng_list_int_via_client")
+    @Html.ActionLink("Browser All the Interventions of this client", "eng_list_int_via_client", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to List", "eng_list_client", new { }, new { @class = "btn btn-default" })
+    
 </p>
+

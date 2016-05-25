@@ -1,90 +1,52 @@
 ﻿@model IEnumerable<IMS_MVC.Models.IntInfo>
+
 @{
-    ViewBag.Title = "man_list_intervention";
+    ViewBag.Title = "“Proposed” interventions";
 }
 
-<h2>man_list_intervention</h2>
+<h2>“Proposed” interventions</h2>
 
-<table class="table">
+<table class="table table-bordered table-hover table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.IntTypeId)
+            @Html.DisplayNameFor(model => model.Client.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClientId)
-        </th>
-        <th class="none">
-            @Html.DisplayNameFor(model => model.SetLabour)
-        </th>
-        <th class="none">
-            @Html.DisplayNameFor(model => model.SetCost)
+            @Html.DisplayNameFor(model => model.IntType.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AspNetUserId)
+            @Html.DisplayNameFor(model => model.User.UserName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IntDate)
+            @Html.DisplayNameFor(model => model.User.UserType)
         </th>
-        <th class="">
+        <th>
             @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th class="none">
-            @Html.DisplayNameFor(model => model.Comments)
-        </th>
-        <th class="none">
-            @Html.DisplayNameFor(model => model.Reamaining)
-        </th>
-        <th class="none">
-            @Html.DisplayNameFor(model => model.VisitDate)
-        </th>
-        <th class="none">
-            @Html.DisplayNameFor(model => model.ApprovedByUserId)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td class="">
-                @Html.DisplayFor(modelItem => item.IntTypeId)
-            </td>
-            <td class="">
-                @Html.DisplayFor(modelItem => item.ClientId)
-            </td>
-            <td class="none">
-                @Html.DisplayFor(modelItem => item.SetLabour)
-            </td>
-            <td class="none">
-                @Html.DisplayFor(modelItem => item.SetCost)
-            </td>
-            <td class="">
-                @Html.DisplayFor(modelItem => item.AspNetUserId)
-            </td>
-            <td class="">
-                @Html.DisplayFor(modelItem => item.IntDate)
-            </td>
-            <td class="">
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td class="none">
-                @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-            <td class="none">
-                @Html.DisplayFor(modelItem => item.Reamaining)
-            </td>
-            <td class="none">
-                @Html.DisplayFor(modelItem => item.VisitDate)
-            </td>
-            <td class="none">
-                @Html.DisplayFor(modelItem => item.ApprovedByUserId)
-            </td>
-            <td class="none">
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Client.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IntType.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Change Status", "man_edit_intervention", new { id=item.Id })
+        </td>
+    </tr>
+}
 
 </table>

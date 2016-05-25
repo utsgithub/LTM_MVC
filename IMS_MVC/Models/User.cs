@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -18,5 +19,9 @@ namespace IMS_MVC.Models
         public int MaxCost { get; set; }
         [Required]
         public string AspNetUserId { get; set; }
+        [Display(Name ="Created By")]
+        public string UserName { get; set; }
+        [Display(Name ="Role")]
+        public string UserType { get; set; }
     }
 }

@@ -19,12 +19,14 @@ namespace IMS_MVC.Controllers
         // GET: Eng
         public ActionResult Index()
         {
-            Response.Redirect("eng/eng_dashboard");
-            return View();
+            return RedirectToAction("eng_dashboard");
         }
 
         public ActionResult eng_create_client()
         {
+            string userid = User.Identity.GetUserId();
+            User user = db.Users.Where(x => x.AspNetUserId == userid).First();
+            ViewBag.DistrictId = new SelectList(db.Districts, "Id", "DistrictName", user.DistrictId);
             return View();
         }
 
@@ -34,42 +36,101 @@ namespace IMS_MVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                string userid = User.Identity.GetUserId();
+                User user = db.Users.Where(x => x.AspNetUserId == userid).First();
+                client.DistrictId = user.DistrictId;
                 db.Clients.Add(client);
-                db.SaveChanges();
-                return RedirectToAction("eng_list_client");
-            }
-
-            return View(client);
-        }
-        public ActionResult eng_create_intervention()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult eng_create_intervention([Bind(Include = "Id,IntTypeId,ClientId,SetLabour,SetCost,UserId,IntDate,Status,Comments,Reamaining,VisitDate,ApprovedByUserId")] IntInfo intInfo)
-        {
-            if (ModelState.IsValid)
-            {
-                db.IntInfos.Add(intInfo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.DistrictId = new SelectList(db.Districts, "Id", "DistrictName", client.DistrictId);
+            return View(client);
+        }
+
+        public ActionResult eng_create_intervention(int? id)
+        {
+            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Name");
+            ViewBag.IntTypeId = new SelectList(db.IntTypes, "Id", "Name");
+            ViewBag.UserId = new SelectList(db.Users, "Id", "AspNetUserId");
+            return View();
+        }
+
+        // POST: IntInfoes/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult eng_create_intervention(IntInfo intInfo)
+        {
+            intInfo.AspNetUserId = User.Identity.GetUserId();
+            intInfo.Status = "Proposed";
+            if (ModelState.IsValid)
+            {
+                
+                db.IntInfos.Add(intInfo);
+                db.SaveChanges();
+                return RedirectToAction("eng_list_int_via_client", new { id = intInfo.ClientId });
+            }
+
+            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Name", intInfo.ClientId);
+            ViewBag.IntTypeId = new SelectList(db.IntTypes, "Id", "Name", intInfo.IntTypeId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "AspNetUserId", intInfo.UserId);
             return View(intInfo);
         }
+
         public ActionResult eng_dashboard()
         {
             return View();
         }
-        public ActionResult eng_detail_client()
+
+        public ActionResult eng_detail_client(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Client client = db.Clients.Find(id);
+            if (client == null)
+            {
+                return HttpNotFound();
+            }
+            return View(client);
         }
-        public ActionResult eng_detail_intervention()
+        public ActionResult eng_detail_intervention(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IntInfo intInfo = db.IntInfos.Find(id);
+            if (intInfo == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Name", intInfo.ClientId);
+            ViewBag.IntTypeId = new SelectList(db.IntTypes, "Id", "Name", intInfo.IntTypeId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "AspNetUserId", intInfo.UserId);
+            return View(intInfo);
+        }
+
+        // POST: IntInfoes/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult eng_detail_intervention(IntInfo intInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(intInfo).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("eng_detail_intervention", new { id = intInfo.Id});
+            }
+            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Name", intInfo.ClientId);
+            ViewBag.IntTypeId = new SelectList(db.IntTypes, "Id", "Name", intInfo.IntTypeId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "AspNetUserId", intInfo.UserId);
+            return View(intInfo);
         }
         public ActionResult eng_edit_intervention()
         {
@@ -79,16 +140,32 @@ namespace IMS_MVC.Controllers
         {
             string userid = User.Identity.GetUserId();
             User user = db.Users.Where(x => x.AspNetUserId == userid).First();
-            return View(db.Clients.Where(x => x.DistrictId==user.DistrictId));
+            var clients = db.Clients.Include(c => c.District);
+            return View(clients.Where(x => x.DistrictId == user.DistrictId).ToList());
         }
         public ActionResult eng_list_intervention()
         {
-            return View();
+            var intInfos = db.IntInfos.Include(i => i.Client).Include(i => i.IntType).Include(i => i.User);
+            if (intInfos == null)
+            {
+                return HttpNotFound();
+            }
+            string userID = User.Identity.GetUserId();
+            return View(intInfos.Where(x => x.AspNetUserId == userID).ToList());
         }
-
-        public ActionResult eng_list_int_via_client()
+        public ActionResult eng_list_int_via_client(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var intInfos = db.IntInfos.Include(i => i.Client).Include(i => i.IntType).Include(i => i.User);
+            if (intInfos == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ViewID = id;
+            return View(intInfos.Where(x => x.ClientId == id).ToList());
         }
     }
 }

@@ -5,95 +5,105 @@
 }
 
 <h2>Review Information</h2>
+<hr />
+<div>
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Client.Name):
+            </th>
 
-<dl class="dl-horizontal">
-    <dt>
-        @Html.DisplayNameFor(model => model.IntTypeId)
-    </dt>
+            <td>
+                @Html.DisplayFor(model => model.Client.Name)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IntType.Name):
+            </th>
 
-    <dd>
-        @Html.DisplayFor(model => model.IntTypeId)
-    </dd>
+            <td>
+                @Html.DisplayFor(model => model.IntType.Name)
+            </td>
+        </tr>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.ClientId)
-    </dt>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SetLabour):
+            </th>
 
-    <dd>
-        @Html.DisplayFor(model => model.ClientId)
-    </dd>
+            <td>
+                @Html.DisplayFor(model => model.SetLabour)
+            </td>
+        </tr>
 
-    @*<dt>
-        @Html.DisplayNameFor(model => model.SetLabour)
-    </dt>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SetCost):
+            </th>
 
-    <dd>
-        @Html.DisplayFor(model => model.SetLabour)
-    </dd>
+            <td>
+                @Html.DisplayFor(model => model.SetCost)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IntDate):
+            </th>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.SetCost)
-    </dt>
+            <td>
+                @Html.DisplayFor(model => model.IntDate)
+            </td>
+        </tr>
 
-    <dd>
-        @Html.DisplayFor(model => model.SetCost)
-    </dd>*@
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Status):
+            </th>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.UserId)
-    </dt>
+            <td>
+                @Html.DisplayFor(model => model.Status)
+            </td>
+        </tr>
 
-    <dd>
-        @Html.DisplayFor(model => model.UserId)
-    </dd>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments):
+            </th>
 
-    @*<dt>
-        @Html.DisplayNameFor(model => model.IntDate)
-    </dt>
+            <td>
+                @Html.DisplayFor(model => model.Comments)
+            </td>
+        </tr>
 
-    <dd>
-        @Html.DisplayFor(model => model.IntDate)
-    </dd>*@
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Reamaining):
+            </th>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.Status)
-    </dt>
+            <td>
+                @Html.DisplayFor(model => model.Reamaining)
+            </td>
+        </tr>
 
-    <dd>
-        @Html.DisplayFor(model => model.Status)
-    </dd>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.VisitDate):
+            </th>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.Comments)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.Comments)
-    </dd>
-@*
-    <dt>
-        @Html.DisplayNameFor(model => model.Reamaining)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.Reamaining)
-    </dd>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.VisitDate)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.VisitDate)
-    </dd>
-    <dt>
-        @Html.DisplayNameFor(model => model.ApprovedByUserId)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.ApprovedByUserId)
-    </dd>*@
-
-</dl>
-
-<p>@Html.ActionLink("Back to List", "Index")</p>
+            <td>
+                @Html.DisplayFor(model => model.VisitDate)
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td>
+                @Html.ActionLink("Approve", "man_status_approve", new { id = Model.Id }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Cancel", "man_status_cancel", new { id = Model.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index" ,new { },new { @class="btn btn-default"})
+</p>

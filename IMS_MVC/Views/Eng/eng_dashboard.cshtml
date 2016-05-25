@@ -12,7 +12,7 @@
             <div class="caption">
                 <h3>Client List</h3>
                 <p>
-                    <a href="eng_list_client" class="btn btn-primary">Go to</a>
+                    @Html.ActionLink("Go to", "eng_list_client", new { }, new { @class= "btn btn-primary" })
                 </p>
             </div>
         </div>
@@ -23,7 +23,7 @@
             <div class="caption">
                 <h3>Interventions List</h3>
                 <p>
-                    <a class="btn btn-primary" href="eng_list_intervention">Go to</a>
+                    @Html.ActionLink("Go to", "eng_list_intervention", new { }, new { @class = "btn btn-primary" })
                 </p>
             </div>
         </div>

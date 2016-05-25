@@ -11,6 +11,7 @@ namespace IMS_MVC.Models
         [Required]
         public int Id { get; set; }
         [Required]
+        [Display(Name= "Intervention Type")]
         public string Name { get; set; }
         [Required]
         public int Labour { get; set; }

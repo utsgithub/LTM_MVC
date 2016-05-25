@@ -103,5 +103,17 @@ namespace IMS_MVC.Controllers
             db.SaveChanges();
             return RedirectToAction("Acc_List_Users");
         }
+
+        public ActionResult report1()
+        {
+            List<User> users = db.Users.ToList();
+            
+            var query = 
+                (
+                    from u in users
+                    select u
+                ).ToList();
+            return View(query);
+        }
     }
 }

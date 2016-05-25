@@ -8,47 +8,38 @@
 
 <div class="row">
     <div class="col-md-9">
-            @using (Html.BeginForm())
+        @using (Html.BeginForm())
             {
-                @Html.AntiForgeryToken()
-                <div>
-                    <table class="table table-bordered" cellspacing="0" id="MainContent_ctl00" style="border-collapse:collapse;">
-                        <tr>
-                            <th style="width:200px;">userName</th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td>@Html.DisplayFor(model => model.DistrictName, new { htmlAttributes = new { @class = "form-control" } })</td>
-                        </tr>
-                    </table>
-                </div>
-            <table class="table">
-                <tr class="warning">
-                    <th style="width: 200px;">
-                        Change District
-                    </th>
-                    <td>
-                        @Html.DropDownListFor(model =>model.DistrictId, ViewBag.DistrictsName as IEnumerable<SelectListItem>);
-                        <select name="" id="MainContent_ddlDistinct" class="form-control">
-                            <option value="1">	Urban Indonesia</option>
-                            <option value="2">	Rural Indonesia</option>
-                            <option value="3">	Urban Papua New Guinea</option>
-                            <option value="4">	Rural Papua New Guinea</option>
-                            <option selected="selected" value="5">	Sydney</option>
-                            <option value="6">	Rural New South Wales</option>
-
-                        </select>
-                    </td>
-                </tr>
-                <tr class="warning">
-                    <th></th>
-                    <td>
-                        <input type="submit" value="Save" class="btn btn-primary" />
-                        <a class="btn btn-default" href="~/Acc/acc_list_users">Back</a>
-                    </td>
-                </tr>
-            </table>
-            }
-        </div>
+            @Html.AntiForgeryToken()
+            <div>
+                <table class="table table-bordered" cellspacing="0" id="MainContent_ctl00" style="border-collapse:collapse;">
+                    <tr>
+                        <th style="width:200px;">User Name:</th>
+                        <td>@Html.DisplayFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                    </tr>
+                    <tr>
+                        <th>Current District:</th>
+                        <td>@Html.DisplayFor(model => model.DistrictName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                    </tr>
+                </table>
+            </div>
+                <table class="table">
+                    <tr class="warning">
+                        <th style="width: 200px;">
+                            Change District
+                        </th>
+                        <td>
+                            @Html.DropDownListFor(model => model.DistrictId, ViewBag.DistrictsName as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr class="warning">
+                        <th></th>
+                        <td>
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                            <a class="btn btn-default" href="~/Acc/acc_list_users">Back</a>
+                        </td>
+                    </tr>
+                </table>
+        }
     </div>
+</div>

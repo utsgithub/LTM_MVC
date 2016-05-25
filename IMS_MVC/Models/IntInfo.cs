@@ -18,7 +18,6 @@ namespace IMS_MVC.Models
         public int ClientId { get; set; }
         public int? SetLabour { get; set; }
         public int? SetCost { get; set; }
-        [Required]
         public string AspNetUserId { get; set; }
         public int UserId { get; set; }
         [Display(Name ="Intervention Date")]

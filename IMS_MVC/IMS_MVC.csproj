@@ -221,6 +221,10 @@
     <Compile Include="Migrations\201605231818485_05240418.Designer.cs">
       <DependentUpon>201605231818485_05240418.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605251013195_05252012.cs" />
+    <Compile Include="Migrations\201605251013195_05252012.Designer.cs">
+      <DependentUpon>201605251013195_05252012.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Client.cs" />
@@ -329,7 +333,6 @@
     <Content Include="Views\Eng\eng_list_int_via_client.cshtml" />
     <Content Include="Views\Acc\acc_list_report.cshtml" />
     <Content Include="Views\Man\man_edit_intervention.cshtml" />
-    <Content Include="Views\Man\Edit.cshtml" />
     <Content Include="Views\Man\man_list_intervention.cshtml" />
     <Content Include="Views\IntInfoes\Create.cshtml" />
     <Content Include="Views\IntInfoes\Delete.cshtml" />
@@ -381,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605231818485_05240418.resx">
       <DependentUpon>201605231818485_05240418.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605251013195_05252012.resx">
+      <DependentUpon>201605251013195_05252012.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

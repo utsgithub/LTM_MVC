@@ -5,3 +5,9 @@
 
 <h2>acc_list_report</h2>
 
+<div>
+    @Html.ActionLink("Total Costs by Engineer", "acc_list_report", "Acc", new { type = 1 }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Average Costs by Engineer", "acc_list_report", "Acc", new { type = 2 }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Costs by District", "acc_list_report", "Acc", new { }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Monthly Costs by District", "acc_list_report", "Acc", new { }, new { @class = "btn btn-primary" })
+</div>

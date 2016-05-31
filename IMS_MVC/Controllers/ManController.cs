@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Net.Mail;
 using IMS_MVC.Models;
+using System.Threading.Tasks;
 
 namespace IMS_MVC.Controllers
 {
@@ -73,6 +75,9 @@ namespace IMS_MVC.Controllers
             }
             db.IntInfos.Single(x => x.Id == id).Status = "Approved";
             db.SaveChanges();
+
+            SendEmailNotification();
+
             return RedirectToAction("man_edit_intervention", new { id = id });
         }
 
@@ -84,7 +89,49 @@ namespace IMS_MVC.Controllers
             }
             db.IntInfos.Single(x => x.Id == id).Status = "Cancelled";
             db.SaveChanges();
+
+            //SendEmailNotification();
+
             return RedirectToAction("man_edit_intervention", new { id = id });
+        }
+
+        private void SendEmailNotification()
+        {
+            // In order for this to work with, Gmail must enable less secure apps settings
+            // TODO: Need to figure out the design of the email body and also the number of emails
+            // required for each of the users
+
+            /** List of Emails Created so far **
+            eng1.ims.monitor@gmail.com    
+            man1.ims.monitor@gmail.com
+            acc1.ims.monitor@gmail.com
+
+            ## All use the same password as the intervention.monitor email **/
+            MailMessage mail = new MailMessage();
+            mail.To.Add("Ashfaqur.M.Rahman@student.uts.edu.au");
+            mail.CC.Add("mahie.rahman@gmail.com");
+            mail.CC.Add("intervention.monitor@gmail.com");
+            mail.CC.Add("eng1.ims.monitor@gmail.com");
+            mail.CC.Add("man1.ims.monitor@gmail.com");
+            mail.CC.Add("acc1.ims.monitor@gmail.com");
+            mail.From = new MailAddress("intervention.monitor@gmail.com");
+            mail.Subject = "Intervention Monitor Test Email";
+            mail.Body = "The body of the email will reside here";
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "intervention.monitor@gmail.com",
+                    Password = "Intervention1!"
+                };
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+            }
         }
 
         protected override void Dispose(bool disposing)

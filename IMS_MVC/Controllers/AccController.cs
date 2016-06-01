@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Diagnostics;
 using IMS_MVC.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -28,8 +29,33 @@ namespace IMS_MVC.Controllers
             return View();
         }
 
-        public ActionResult acc_list_report()
+        public ActionResult acc_list_report(int? type)
         {
+            Debug.WriteLine("Debugging acc_list_report");
+
+            if(type != null)
+            {
+                // if not null then run the reports
+            }
+            else
+            {
+                //return view();
+            }
+
+            List<IntInfo> interventions = db.IntInfos.ToList();
+
+            var results =
+                from i in interventions
+                //where i.Status.Equals("Completed") //need this later
+                group i by i.AspNetUserId
+                into g
+                select new { Id = g.Key, TotalLabour = g.Sum(i => i.SetLabour), TotalCost = g.Sum(i => i.SetCost) };
+
+            foreach (var result in results)
+            {
+                Debug.WriteLine(result.Id + '\t' + result.TotalLabour + ", " + result.TotalCost);
+            }
+
             return View();
         }
         //Todo: Connect User table

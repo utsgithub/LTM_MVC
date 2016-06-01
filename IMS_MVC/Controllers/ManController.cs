@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using System.Net.Mail;
 using IMS_MVC.Models;
 using System.Threading.Tasks;
+using System.Web.Security;
+using Microsoft.AspNet.Identity;
 
 namespace IMS_MVC.Controllers
 {
@@ -76,7 +78,14 @@ namespace IMS_MVC.Controllers
             db.IntInfos.Single(x => x.Id == id).Status = "Approved";
             db.SaveChanges();
 
-            SendEmailNotification();
+            // Approval logic should go here
+
+
+            SendEmailNotification(id);
+
+            //temp
+            db.IntInfos.Single(x => x.Id == id).Status = "Proposed";
+            db.SaveChanges();
 
             return RedirectToAction("man_edit_intervention", new { id = id });
         }
@@ -90,12 +99,18 @@ namespace IMS_MVC.Controllers
             db.IntInfos.Single(x => x.Id == id).Status = "Cancelled";
             db.SaveChanges();
 
-            //SendEmailNotification();
+            // Cancellatoin logic should go here
+
+            SendEmailNotification(id);
+
+            //temp
+            db.IntInfos.Single(x => x.Id == id).Status = "Proposed";
+            db.SaveChanges();
 
             return RedirectToAction("man_edit_intervention", new { id = id });
         }
 
-        private void SendEmailNotification()
+        private void SendEmailNotification(int? id)
         {
             // In order for this to work with, Gmail must enable less secure apps settings
             // TODO: Need to figure out the design of the email body and also the number of emails
@@ -105,18 +120,22 @@ namespace IMS_MVC.Controllers
             eng1.ims.monitor@gmail.com    
             man1.ims.monitor@gmail.com
             acc1.ims.monitor@gmail.com
-
             ## All use the same password as the intervention.monitor email **/
+
+            IntInfo info = db.IntInfos.FirstOrDefault(x => x.Id == id);
+
             MailMessage mail = new MailMessage();
-            mail.To.Add("Ashfaqur.M.Rahman@student.uts.edu.au");
-            mail.CC.Add("mahie.rahman@gmail.com");
-            mail.CC.Add("intervention.monitor@gmail.com");
-            mail.CC.Add("eng1.ims.monitor@gmail.com");
-            mail.CC.Add("man1.ims.monitor@gmail.com");
-            mail.CC.Add("acc1.ims.monitor@gmail.com");
+            mail.To.Add("eng1.ims.monitor@gmail.com");
             mail.From = new MailAddress("intervention.monitor@gmail.com");
-            mail.Subject = "Intervention Monitor Test Email";
-            mail.Body = "The body of the email will reside here";
+            mail.Subject = "Intervention " + info.Status;
+            mail.Body = "<b>The intervention you've created has been " + info.Status + "</b><br />" +
+                        "Client: " + info.Client.Name + "<br />" +
+                        "Labour: " + info.SetLabour + "<br />" +
+                        "Cost: $" + info.SetCost + "<br />" +
+                        "Intervention Type: " + info.IntType.Name + "<br />" +
+                        "Comments: " + info.Comments + "<br />" +
+                        "Remaining: " + info.Reamaining + "<br />";
+            mail.IsBodyHtml = true;
 
             using (var smtp = new SmtpClient())
             {

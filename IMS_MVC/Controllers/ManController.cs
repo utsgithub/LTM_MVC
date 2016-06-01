@@ -117,7 +117,13 @@ namespace IMS_MVC.Controllers
             // required for each of the users
 
             /** List of Emails Created so far **
-            eng1.ims.monitor@gmail.com    
+            eng1.ims.monitor@gmail.com
+            eng2.ims.monitor@gmail.com
+            eng3.ims.monitor@gmail.com
+            alice.ims.monitor@gmail.com
+            sam.ims.monitor@gmail.com
+            george.ims.monitor@gmail.com
+
             man1.ims.monitor@gmail.com
             acc1.ims.monitor@gmail.com
             ## All use the same password as the intervention.monitor email **/
@@ -125,7 +131,7 @@ namespace IMS_MVC.Controllers
             IntInfo info = db.IntInfos.FirstOrDefault(x => x.Id == id);
 
             MailMessage mail = new MailMessage();
-            mail.To.Add("eng1.ims.monitor@gmail.com");
+            mail.To.Add(info.User.UserName);
             mail.From = new MailAddress("intervention.monitor@gmail.com");
             mail.Subject = "Intervention " + info.Status;
             mail.Body = "<b>The intervention you've created has been " + info.Status + "</b><br />" +
@@ -134,7 +140,8 @@ namespace IMS_MVC.Controllers
                         "Cost: $" + info.SetCost + "<br />" +
                         "Intervention Type: " + info.IntType.Name + "<br />" +
                         "Comments: " + info.Comments + "<br />" +
-                        "Remaining: " + info.Reamaining + "<br />";
+                        "Remaining: " + info.Reamaining + "<br />" +
+                        "Visit Date: " + info.VisitDate;
             mail.IsBodyHtml = true;
 
             using (var smtp = new SmtpClient())

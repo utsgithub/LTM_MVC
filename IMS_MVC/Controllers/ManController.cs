@@ -78,7 +78,7 @@ namespace IMS_MVC.Controllers
             db.IntInfos.Single(x => x.Id == id).Status = "Approved";
             db.SaveChanges();
 
-            // Approval logic should go here
+            // Todo: Approval logic should go here
 
 
             SendEmailNotification(id);

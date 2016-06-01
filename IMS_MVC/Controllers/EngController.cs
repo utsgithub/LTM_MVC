@@ -50,10 +50,14 @@ namespace IMS_MVC.Controllers
 
         public ActionResult eng_create_intervention(int? id)
         {
-            ViewBag.ClientId = new SelectList(db.Clients, "Id", "Name");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IntInfo intInfo = new IntInfo();
+            intInfo.ClientId = id.GetValueOrDefault(0);
             ViewBag.IntTypeId = new SelectList(db.IntTypes, "Id", "Name");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "AspNetUserId");
-            return View();
+            return View(intInfo);
         }
 
         // POST: IntInfoes/Create
@@ -61,10 +65,20 @@ namespace IMS_MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult eng_create_intervention(IntInfo intInfo)
+        public ActionResult eng_create_intervention(int IntTypeId, int SetLabour, int SetCost, int ClientId)
         {
+            // Todo: Default Labour and Cost
+            int FinalLabour = SetLabour;
+            int FinalCost = SetCost;
+            IntInfo intInfo = new IntInfo();
             intInfo.AspNetUserId = User.Identity.GetUserId();
+            intInfo.ClientId = ClientId;
+            intInfo.IntTypeId = IntTypeId;
+            intInfo.SetLabour = SetLabour;
+            intInfo.SetCost = SetCost;
             intInfo.Status = "Proposed";
+            intInfo.IntDate = DateTime.Now;
+            intInfo.UserId = 1;
             if (ModelState.IsValid)
             {
                 

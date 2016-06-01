@@ -169,15 +169,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ClientsController.cs" />
-    <Compile Include="Controllers\DistrictsController.cs" />
     <Compile Include="Controllers\EngController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IntInfoesController.cs" />
-    <Compile Include="Controllers\IntTypesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -303,21 +298,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\IntTypes\Create.cshtml" />
-    <Content Include="Views\IntTypes\Delete.cshtml" />
-    <Content Include="Views\IntTypes\Details.cshtml" />
-    <Content Include="Views\IntTypes\Edit.cshtml" />
-    <Content Include="Views\IntTypes\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Districts\Create.cshtml" />
-    <Content Include="Views\Districts\Delete.cshtml" />
-    <Content Include="Views\Districts\Details.cshtml" />
-    <Content Include="Views\Districts\Edit.cshtml" />
-    <Content Include="Views\Districts\Index.cshtml" />
     <Content Include="Views\Acc\acc_dashboard.cshtml" />
     <Content Include="Views\Acc\Acc_List_Users.cshtml" />
     <Content Include="Views\Acc\acc_edit_district.cshtml" />
@@ -333,16 +313,6 @@
     <Content Include="Views\Acc\acc_list_report.cshtml" />
     <Content Include="Views\Man\man_edit_intervention.cshtml" />
     <Content Include="Views\Man\man_list_intervention.cshtml" />
-    <Content Include="Views\IntInfoes\Create.cshtml" />
-    <Content Include="Views\IntInfoes\Delete.cshtml" />
-    <Content Include="Views\IntInfoes\Details.cshtml" />
-    <Content Include="Views\IntInfoes\Edit.cshtml" />
-    <Content Include="Views\IntInfoes\Index.cshtml" />
-    <Content Include="Views\Clients\Create.cshtml" />
-    <Content Include="Views\Clients\Delete.cshtml" />
-    <Content Include="Views\Clients\Details.cshtml" />
-    <Content Include="Views\Clients\Edit.cshtml" />
-    <Content Include="Views\Clients\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

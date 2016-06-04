@@ -1,19 +1,19 @@
 ﻿@model IMS_MVC.Models.IntInfo
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Intervention Detail";
 }
 
-<h2>Edit</h2>
-
+<h2>Intervention Detail</h2>
+<hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>IntInfo</h4>
-        <hr />
+        
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="form-group none">
+        <div class="form-group">
             @Html.LabelFor(model => model.SetLabour, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SetLabour, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div class="form-group none">
+        <div class="form-group">
             @Html.LabelFor(model => model.SetCost, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SetCost, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
@@ -88,7 +88,8 @@
                 @Html.HiddenFor(model => model.Status)
             </div>
         </div>
-
+        <h2>Quality Management Information</h2>
+        <hr/>
         <div class="form-group">
             @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -125,7 +126,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "eng_list_int_via_client", new { id = Model.Id })
+    @Html.ActionLink("Back to List", "eng_list_int_via_client", new { id = Model.ClientId })
 </div>
 
 @section Scripts {

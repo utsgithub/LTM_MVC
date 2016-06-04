@@ -41,7 +41,7 @@ namespace IMS_MVC.Controllers
                 client.DistrictId = user.DistrictId;
                 db.Clients.Add(client);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("eng_list_client");
             }
 
             ViewBag.DistrictId = new SelectList(db.Districts, "Id", "DistrictName", client.DistrictId);
@@ -65,23 +65,31 @@ namespace IMS_MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult eng_create_intervention(int IntTypeId, int SetLabour, int SetCost, int ClientId)
+        public ActionResult eng_create_intervention(int IntTypeId, int? SetLabour, int? SetCost, int ClientId)
         {
             // Todo: Default Labour and Cost
-            int FinalLabour = SetLabour;
-            int FinalCost = SetCost;
+            int FinalLabour = SetLabour.GetValueOrDefault(0);
+            int FinalCost = SetCost.GetValueOrDefault(0);
+            if (FinalLabour == 0 || FinalCost == 0)
+            {
+                IntType intType = db.IntTypes.Where(x => x.Id == IntTypeId).First();
+                if (FinalCost == 0) { FinalCost = intType.Cost; }
+                if (FinalLabour == 0) { FinalLabour = intType.Labour; }
+            }
+            string currentUserId = User.Identity.GetUserId();
+            User user = db.Users.Where(x => x.AspNetUserId == currentUserId).First();
             IntInfo intInfo = new IntInfo();
             intInfo.AspNetUserId = User.Identity.GetUserId();
             intInfo.ClientId = ClientId;
             intInfo.IntTypeId = IntTypeId;
-            intInfo.SetLabour = SetLabour;
-            intInfo.SetCost = SetCost;
+            intInfo.SetLabour = FinalCost;
+            intInfo.SetCost = FinalCost;
             intInfo.Status = "Proposed";
             intInfo.IntDate = DateTime.Now;
-            intInfo.UserId = 1;
+            intInfo.UserId = user.Id;
             if (ModelState.IsValid)
             {
-                
+
                 db.IntInfos.Add(intInfo);
                 db.SaveChanges();
                 return RedirectToAction("eng_list_int_via_client", new { id = intInfo.ClientId });
@@ -139,7 +147,7 @@ namespace IMS_MVC.Controllers
             {
                 db.Entry(intInfo).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("eng_detail_intervention", new { id = intInfo.Id});
+                return RedirectToAction("eng_detail_intervention", new { id = intInfo.Id });
             }
             ViewBag.ClientId = new SelectList(db.Clients, "Id", "Name", intInfo.ClientId);
             ViewBag.IntTypeId = new SelectList(db.IntTypes, "Id", "Name", intInfo.IntTypeId);

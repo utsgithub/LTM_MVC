@@ -2,10 +2,10 @@
 @model IMS_MVC.Models.IntInfo
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Intervention";
 }
 
-<h2>Create</h2>
+<h2>Create Intervention</h2>
 
 
 @using (Html.BeginForm())
@@ -13,7 +13,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>IntInfo</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

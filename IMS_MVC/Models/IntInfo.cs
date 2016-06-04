@@ -13,10 +13,14 @@ namespace IMS_MVC.Models
         [Required]
         public int Id { get; set; }
         [Required]
+        [Display(Name = "Intervention Type")]
         public int IntTypeId { get; set; }
         [Required]
+        [Display(Name = "Client Name")]
         public int ClientId { get; set; }
+        [Display(Name = "Labour")]
         public int? SetLabour { get; set; }
+        [Display(Name = "Cost")]
         public int? SetCost { get; set; }
         public string AspNetUserId { get; set; }
         public int UserId { get; set; }

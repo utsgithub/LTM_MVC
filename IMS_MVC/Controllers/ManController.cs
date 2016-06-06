@@ -8,9 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net.Mail;
 using IMS_MVC.Models;
-using System.Threading.Tasks;
-using System.Web.Security;
-using Microsoft.AspNet.Identity;
 
 namespace IMS_MVC.Controllers
 {
@@ -149,7 +146,7 @@ namespace IMS_MVC.Controllers
                 var credential = new NetworkCredential
                 {
                     UserName = "intervention.monitor@gmail.com",
-                    Password = "Intervention1!"
+                    Password = "Intervention2!"
                 };
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = credential;

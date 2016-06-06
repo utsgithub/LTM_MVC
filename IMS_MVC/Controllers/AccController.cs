@@ -29,31 +29,70 @@ namespace IMS_MVC.Controllers
             return View();
         }
 
-        public ActionResult acc_list_report(int? type)
+        public ActionResult acc_list_report(int? report)
         {
             Debug.WriteLine("Debugging acc_list_report");
 
-            if(type != null)
-            {
+            if(report != null) {
                 // if not null then run the reports
-            }
-            else
-            {
+            } else {
                 //return view();
             }
 
             List<IntInfo> interventions = db.IntInfos.ToList();
 
-            var results =
-                from i in interventions
-                //where i.Status.Equals("Completed") //need this later
-                group i by i.AspNetUserId
-                into g
-                select new { Id = g.Key, TotalLabour = g.Sum(i => i.SetLabour), TotalCost = g.Sum(i => i.SetCost) };
-
-            foreach (var result in results)
+            switch (report)
             {
-                Debug.WriteLine(result.Id + '\t' + result.TotalLabour + ", " + result.TotalCost);
+                case 1:
+                    Debug.WriteLine("Report 1 - total costs by engineer");
+                    var report1 =
+                        from i in interventions
+                        //where i.Status.Equals("Completed") //need this later
+                        group i by i.AspNetUserId
+                        into g
+                        select new { Id = g.Key, TotalLabour = g.Sum(i => i.SetLabour), TotalCost = g.Sum(i => i.SetCost) };
+
+                    foreach (var result in report1)
+                    {
+                        Debug.WriteLine(result.Id + '\t' + result.TotalLabour + ", " + result.TotalCost);
+                    }
+                    break;
+                case 2:
+                    Debug.WriteLine("Report 2 - average costs by engineer");
+                    var report2 =
+                        from i in interventions
+                        //where i.Status.Equals("Completed") //need this later
+                        group i by i.AspNetUserId
+                        into g
+                        select new { Id = g.Key, TotalLabour = g.Average(i => i.SetLabour), TotalCost = g.Average(i => i.SetCost) };
+
+                    foreach (var result in report2)
+                    {
+                        Debug.WriteLine(result.Id + '\t' + result.TotalLabour + ", " + result.TotalCost);
+                    }
+                    break;
+                case 3:
+                    Debug.WriteLine("Report 3 - costs by district");
+                    var report3 =
+                        from i in interventions
+                        //where i.Status.Equals("Completed") //need this later
+                        group i by i.Client.District
+                        into g
+                        select new { Id = g.Key, TotalLabour = g.Sum(i => i.SetLabour), TotalCost = g.Sum(i => i.SetCost) };
+
+                    foreach (var result in report3)
+                    {
+                        Debug.WriteLine(result.Id.DistrictName + '\t' + result.TotalLabour + ", " + result.TotalCost);
+                    }
+
+                    break;
+                case 4:
+
+
+                    break;
+                case null: default:
+                    Debug.WriteLine("REPORT TYPE was NULL/DEFAULT");
+                    break;
             }
 
             return View();

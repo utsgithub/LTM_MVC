@@ -10,6 +10,7 @@ using System.Diagnostics;
 using IMS_MVC.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Dynamic;
 
 namespace IMS_MVC.Controllers
 {
@@ -31,46 +32,48 @@ namespace IMS_MVC.Controllers
 
         public ActionResult acc_list_report(int? report)
         {
-            Debug.WriteLine("Debugging acc_list_report");
-
-            if(report != null) {
-                // if not null then run the reports
-            } else {
-                //return view();
-            }
-
             List<IntInfo> interventions = db.IntInfos.ToList();
 
             switch (report)
             {
                 case 1:
                     Debug.WriteLine("Report 1 - total costs by engineer");
-                    var report1 =
+                    dynamic report1 =
                         from i in interventions
-                        //where i.Status.Equals("Completed") //need this later
-                        group i by i.AspNetUserId
+                            //where i.Status.Equals("Completed") //need this later
+                        group i by i.User.UserName
                         into g
-                        select new { Id = g.Key, TotalLabour = g.Sum(i => i.SetLabour), TotalCost = g.Sum(i => i.SetCost) };
-
-                    foreach (var result in report1)
-                    {
-                        Debug.WriteLine(result.Id + '\t' + result.TotalLabour + ", " + result.TotalCost);
-                    }
-                    break;
+                        select new
+                        {
+                            User = g.Key,
+                            TotalLabour = g.Sum(i => i.SetLabour),
+                            TotalCost = g.Sum(i => i.SetCost)
+                        } into selection
+                        orderby selection.User
+                        select selection.ToExpando();
+                    //foreach (dynamic result in report1)
+                    //{Debug.WriteLine(result.Id + '\t' + result.TotalLabour + ", " + result.TotalCost);}
+                    //Response.Redirect("acc/acc_dashboard");
+                    return View(report1);
                 case 2:
                     Debug.WriteLine("Report 2 - average costs by engineer");
                     var report2 =
                         from i in interventions
-                        //where i.Status.Equals("Completed") //need this later
-                        group i by i.AspNetUserId
+                            //where i.Status.Equals("Completed") //need this later
+                        group i by i.User.UserName
                         into g
-                        select new { Id = g.Key, TotalLabour = g.Average(i => i.SetLabour), TotalCost = g.Average(i => i.SetCost) };
-
-                    foreach (var result in report2)
-                    {
-                        Debug.WriteLine(result.Id + '\t' + result.TotalLabour + ", " + result.TotalCost);
-                    }
-                    break;
+                        select new
+                        {
+                            User = g.Key,
+                            TotalLabour = g.Average(i => i.SetLabour),
+                            TotalCost = g.Average(i => i.SetCost)
+                        } into selection
+                        orderby selection.User
+                        select selection.ToExpando();
+                    //foreach (var result in report2)
+                    //{ Debug.WriteLine(result.Id + '\t' + result.TotalLabour + ", " + result.TotalCost);}
+                    //Response.Redirect("acc_dashboard");
+                    return View(report2);
                 case 3:
                     Debug.WriteLine("Report 3 - costs by district");
                     var report3 =
@@ -78,17 +81,19 @@ namespace IMS_MVC.Controllers
                         //where i.Status.Equals("Completed") //need this later
                         group i by i.Client.District
                         into g
-                        select new { Id = g.Key, TotalLabour = g.Sum(i => i.SetLabour), TotalCost = g.Sum(i => i.SetCost) };
-
-                    foreach (var result in report3)
-                    {
-                        Debug.WriteLine(result.Id.DistrictName + '\t' + result.TotalLabour + ", " + result.TotalCost);
-                    }
-
-                    break;
+                        select new
+                        {
+                            District = g.Key.DistrictName,
+                            TotalLabour = g.Sum(i => i.SetLabour),
+                            TotalCost = g.Sum(i => i.SetCost)
+                        }.ToExpando();
+                    //foreach (var result in report3)
+                    //{ Debug.WriteLine(result.Id.DistrictName + '\t' + result.TotalLabour + ", " + result.TotalCost); }
+                    //Response.Redirect("acc_dashboard");
+                    return View(report3);
                 case 4:
 
-
+                    Response.Redirect("acc_dashboard");
                     break;
                 case null: default:
                     Debug.WriteLine("REPORT TYPE was NULL/DEFAULT");
@@ -167,6 +172,18 @@ namespace IMS_MVC.Controllers
             db.Users.Single(x => x.Id == Id).DistrictId = DistrictId;
             db.SaveChanges();
             return RedirectToAction("Acc_List_Users");
+        }
+    }
+
+    public static class Extensions
+    {
+        public static ExpandoObject ToExpando(this object anonymousObject)
+        {
+            IDictionary<string, object> anonymousDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(anonymousObject);
+            IDictionary<string, object> expando = new ExpandoObject();
+            foreach (var item in anonymousDictionary)
+                expando.Add(item);
+            return (ExpandoObject)expando;
         }
     }
 }

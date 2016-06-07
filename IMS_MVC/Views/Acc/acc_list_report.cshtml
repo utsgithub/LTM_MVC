@@ -1,13 +1,77 @@
-﻿
+﻿@model IEnumerable<dynamic>
 @{
     ViewBag.Title = "acc_list_report";
 }
 
-<h2>acc_list_report</h2>
+<h2>Reports</h2>
 
-<div>
+<p>
     @Html.ActionLink("Total Costs by Engineer", "acc_list_report", "Acc", new { report = 1 }, new { @class = "btn btn-primary" })
     @Html.ActionLink("Average Costs by Engineer", "acc_list_report", "Acc", new { report = 2 }, new { @class = "btn btn-primary" })
     @Html.ActionLink("Costs by District", "acc_list_report", "Acc", new { report = 3 }, new { @class = "btn btn-primary" })
     @Html.ActionLink("Monthly Costs by District", "acc_list_report", "Acc", new { report = 4 }, new { @class = "btn btn-primary" })
-</div>
+</p>
+
+@if (Model != null)
+{
+    int report = int.Parse(Request.QueryString["report"]);
+
+    switch (report)
+    {
+        case 1:
+            <table class="table table-bordered table-hover table-striped">
+                <tr>
+                    <th>Site Engineer</th>
+                    <th>Total Labour Hours</th>
+                    <th>Total Cost</th>
+                </tr>
+
+                @foreach (dynamic data in Model)
+                {
+                    <tr>
+                        <td>@data.User</td>
+                        <td>@data.TotalLabour</td>
+                        <td>@data.TotalCost</td>
+                    </tr>
+                }
+            </table>
+            break;
+        case 2:
+            <table class="table table-bordered table-hover table-striped">
+                <tr>
+                    <th>Site Engineer</th>
+                    <th>Average Labour Hours</th>
+                    <th>Average Cost</th>
+                </tr>
+
+                @foreach (dynamic data in Model)
+                {
+                    <tr>
+                        <td>@data.User</td>
+                        <td>@data.TotalLabour</td>
+                        <td>@data.TotalCost</td>
+                    </tr>
+                }
+            </table>
+            break;
+        case 3:
+            <table class="table table-bordered table-hover table-striped">
+                <tr>
+                    <th>District</th>
+                    <th>Total Labour Hours</th>
+                    <th>Total Cost</th>
+                </tr>
+
+                @foreach (dynamic data in Model)
+                {
+                    <tr>
+                        <td>@data.District</td>
+                        <td>@data.TotalLabour</td>
+                        <td>@data.TotalCost</td>
+                    </tr>
+                }
+            </table>
+            break;
+        default: break;
+    }
+}

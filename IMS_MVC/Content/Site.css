@@ -240,3 +240,13 @@ textarea {
 .radius-none {
 	border-radius: 0px;
 }
+
+.first-half-footer {
+    float: left;
+    width: 50%;
+}
+
+.second-half-footer {
+    float: right;
+    width: 50%;
+}

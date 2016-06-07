@@ -25,13 +25,12 @@
                     <th>Total Labour Hours</th>
                     <th>Total Cost</th>
                 </tr>
-
                 @foreach (dynamic data in Model)
                 {
                     <tr>
                         <td>@data.User</td>
                         <td>@data.TotalLabour</td>
-                        <td>@data.TotalCost</td>
+                        <td>$@data.TotalCost</td>
                     </tr>
                 }
             </table>
@@ -43,34 +42,50 @@
                     <th>Average Labour Hours</th>
                     <th>Average Cost</th>
                 </tr>
-
                 @foreach (dynamic data in Model)
                 {
                     <tr>
                         <td>@data.User</td>
-                        <td>@data.TotalLabour</td>
-                        <td>@data.TotalCost</td>
+                        <td>@data.AvgLabour</td>
+                        <td>$@data.AvgCost</td>
                     </tr>
                 }
             </table>
             break;
         case 3:
             <table class="table table-bordered table-hover table-striped">
-                <tr>
-                    <th>District</th>
-                    <th>Total Labour Hours</th>
-                    <th>Total Cost</th>
-                </tr>
-
-                @foreach (dynamic data in Model)
-                {
+                <thead>
                     <tr>
-                        <td>@data.District</td>
-                        <td>@data.TotalLabour</td>
-                        <td>@data.TotalCost</td>
+                        <th>District</th>
+                        <th>Total Labour Hours</th>
+                        <th>Total Cost</th>
                     </tr>
-                }
+                </thead>
+                <tbody>
+                    @foreach (var data in Model.ElementAt(0))
+                    {
+                        <tr>
+                            <td>@data.District</td>
+                            <td>@data.TotalLabour</td>
+                            <td>$@data.TotalCost</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="3">
+                            <div class="first-half-footer">
+                                Grand Total Labour Hours: @Model.ElementAt(1)
+                            </div>
+                            <div class="second-half-footer">
+                                Grand Total Cost: $@Model.ElementAt(2)
+                            </div>
+                        </th>
+                    </tr>
+                </tfoot>
             </table>
+            break;
+        case 4:
             break;
         default: break;
     }

@@ -11,6 +11,7 @@ using IMS_MVC.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Dynamic;
+using System.Globalization;
 
 namespace IMS_MVC.Controllers
 {
@@ -30,6 +31,7 @@ namespace IMS_MVC.Controllers
             return View();
         }
 
+        //TODO: Must Implement the status checks in each of the Linq queries for Completed interventions only
         public ActionResult acc_list_report(int? report)
         {
             List<IntInfo> interventions = db.IntInfos.ToList();
@@ -38,59 +40,59 @@ namespace IMS_MVC.Controllers
             {
                 case 1:
                     Debug.WriteLine("Report 1 - total costs by engineer");
-                    dynamic report1 =
+                    var report1 =
                         from i in interventions
-                            //where i.Status.Equals("Completed") //need this later
+                            //where i.Status.Equals("Completed") //must implement later
                         group i by i.User.UserName
                         into g
                         select new
                         {
                             User = g.Key,
                             TotalLabour = g.Sum(i => i.SetLabour),
-                            TotalCost = g.Sum(i => i.SetCost)
+                            TotalCost = ((double)g.Sum(i => i.SetCost)).ToString("N", new CultureInfo("en-US"))
                         } into selection
                         orderby selection.User
                         select selection.ToExpando();
-                    //foreach (dynamic result in report1)
-                    //{Debug.WriteLine(result.Id + '\t' + result.TotalLabour + ", " + result.TotalCost);}
-                    //Response.Redirect("acc/acc_dashboard");
                     return View(report1);
                 case 2:
                     Debug.WriteLine("Report 2 - average costs by engineer");
                     var report2 =
                         from i in interventions
-                            //where i.Status.Equals("Completed") //need this later
+                            //where i.Status.Equals("Completed") //must implement later
                         group i by i.User.UserName
                         into g
                         select new
                         {
                             User = g.Key,
-                            TotalLabour = g.Average(i => i.SetLabour),
-                            TotalCost = g.Average(i => i.SetCost)
+                            AvgLabour = Math.Round((double)g.Average(i => i.SetLabour)),
+                            AvgCost = Math.Round((double)g.Average(i => i.SetCost))
                         } into selection
                         orderby selection.User
                         select selection.ToExpando();
-                    //foreach (var result in report2)
-                    //{ Debug.WriteLine(result.Id + '\t' + result.TotalLabour + ", " + result.TotalCost);}
-                    //Response.Redirect("acc_dashboard");
                     return View(report2);
                 case 3:
                     Debug.WriteLine("Report 3 - costs by district");
                     var report3 =
                         from i in interventions
-                        //where i.Status.Equals("Completed") //need this later
+                            //where i.Status.Equals("Completed") //must implement later
                         group i by i.Client.District
                         into g
                         select new
                         {
                             District = g.Key.DistrictName,
                             TotalLabour = g.Sum(i => i.SetLabour),
-                            TotalCost = g.Sum(i => i.SetCost)
+                            TotalCost = ((double)g.Sum(i => i.SetCost)).ToString("N", new CultureInfo("en-US"))
                         }.ToExpando();
-                    //foreach (var result in report3)
-                    //{ Debug.WriteLine(result.Id.DistrictName + '\t' + result.TotalLabour + ", " + result.TotalCost); }
-                    //Response.Redirect("acc_dashboard");
-                    return View(report3);
+
+                    var GrandTotalLabour = interventions.Sum(x => x.SetLabour); //Where(x => x.Status == "Completed").
+                    var GrandTotalCost = ((double)interventions.Sum(x => x.SetCost)).ToString("N", new CultureInfo("en-US")); //Where(x => x.Status == "Completed").
+
+                    List <dynamic> grouped = new List<dynamic>();
+                    grouped.Add(report3);
+                    grouped.Add(GrandTotalLabour);
+                    grouped.Add(GrandTotalCost);
+
+                    return View(grouped);
                 case 4:
 
                     Response.Redirect("acc_dashboard");

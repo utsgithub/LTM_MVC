@@ -3,8 +3,23 @@
     ViewBag.Title = "acc_list_report";
 }
 
-<h2>Reports</h2>
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#DistrictListForMonthlyReport').change(function () {
+            var selectedId = $(this).val();
 
+            $('#partialPlaceHolder').fadeOut('slow');
+
+            $.get('/Acc/LoadPartialView?district_id=' + selectedId, function (data) {
+                $('#partialPlaceHolder').html(data);
+                $('#partialPlaceHolder').fadeIn('slow');
+            });
+        });
+    });
+</script>
+
+<h2>Reports</h2>
 <p>
     @Html.ActionLink("Total Costs by Engineer", "acc_list_report", "Acc", new { report = 1 }, new { @class = "btn btn-primary" })
     @Html.ActionLink("Average Costs by Engineer", "acc_list_report", "Acc", new { report = 2 }, new { @class = "btn btn-primary" })
@@ -86,6 +101,16 @@
             </table>
             break;
         case 4:
+            <p>
+                <select id="DistrictListForMonthlyReport" class="form-control">
+                    <option>[Select a District]</option>
+                    @foreach (var data in Model)
+                    {
+                        <option value="@data.Id">@data.DistrictName</option>
+                    }
+                </select>
+            </p>
+            <div id="partialPlaceHolder" style="display:none;"></div>
             break;
         default: break;
     }

@@ -1,0 +1,17 @@
+﻿@model IEnumerable<dynamic>
+
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+        <th>Month</th>
+        <th>Total Labour</th>
+        <th>Total Cost</th>
+    </tr>
+    @foreach (dynamic data in Model)
+    {
+        <tr>
+            <td>@data.Item1</td>
+            <td>@data.Item2</td>
+            <td>@data.Item3</td>
+        </tr>
+    }
+</table>

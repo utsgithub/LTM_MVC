@@ -38,8 +38,7 @@ namespace IMS_MVC.Controllers
 
             switch (report)
             {
-                case 1:
-                    Debug.WriteLine("Report 1 - total costs by engineer");
+                case 1: // Report 1 = Total Costs by Engineer
                     var report1 =
                         from i in interventions
                             //where i.Status.Equals("Completed") //must implement later
@@ -54,8 +53,7 @@ namespace IMS_MVC.Controllers
                         orderby selection.User
                         select selection.ToExpando();
                     return View(report1);
-                case 2:
-                    Debug.WriteLine("Report 2 - average costs by engineer");
+                case 2: // Report 2 - Average Costs by Engineer
                     var report2 =
                         from i in interventions
                             //where i.Status.Equals("Completed") //must implement later
@@ -70,8 +68,7 @@ namespace IMS_MVC.Controllers
                         orderby selection.User
                         select selection.ToExpando();
                     return View(report2);
-                case 3:
-                    Debug.WriteLine("Report 3 - costs by district");
+                case 3: // Report 3 - Costs by District
                     var report3 =
                         from i in interventions
                             //where i.Status.Equals("Completed") //must implement later
@@ -87,23 +84,59 @@ namespace IMS_MVC.Controllers
                     var GrandTotalLabour = interventions.Sum(x => x.SetLabour); //Where(x => x.Status == "Completed").
                     var GrandTotalCost = ((double)interventions.Sum(x => x.SetCost)).ToString("N", new CultureInfo("en-US")); //Where(x => x.Status == "Completed").
 
-                    List <dynamic> grouped = new List<dynamic>();
+                    List<dynamic> grouped = new List<dynamic>();
                     grouped.Add(report3);
                     grouped.Add(GrandTotalLabour);
                     grouped.Add(GrandTotalCost);
 
                     return View(grouped);
-                case 4:
+                case 4: // Report 4 - Monthly Costs for District
 
-                    Response.Redirect("acc_dashboard");
-                    break;
-                case null: default:
-                    Debug.WriteLine("REPORT TYPE was NULL/DEFAULT");
-                    break;
+                    List<District> districts = db.Districts.ToList();
+                    
+                    return View(districts);
+                case null:
+                default: break;
             }
 
             return View();
         }
+
+
+        public ActionResult LoadPartialView(int? district_id)
+        {
+            List<IntInfo> interventions = db.IntInfos.ToList();
+            var monthly_labour_cost = new List<Tuple<string, int, int>>();
+
+            for (int i = 1; i <= 12; i++)
+            {
+                string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i);
+                var month_district = interventions.Where(x => x.IntDate.GetValueOrDefault().Month == i && x.Client.DistrictId == district_id);
+
+                if (month_district.Count() > 0)
+                {
+                    int total_labour = 0, total_cost = 0;
+
+                    foreach (var info in month_district)
+                    {
+                        if (info.IntDate != null)
+                        {
+                            total_labour += info.SetLabour.Value;
+                            total_cost += info.SetCost.Value;
+                        }
+                    }
+                    monthly_labour_cost.Add(new Tuple<string, int, int>(monthName, total_labour, total_cost));
+                }
+                else
+                {
+                    monthly_labour_cost.Add(new Tuple<string, int, int>(monthName, 0, 0));
+                }
+            }
+
+            return PartialView("_ViewMonthly", monthly_labour_cost);
+        }
+
+
         //Todo: Connect User table
         //Todo: Connect District table
         public ActionResult Acc_List_Users()
@@ -158,7 +191,7 @@ namespace IMS_MVC.Controllers
             vuser.Role = rolesForUser;
 
             List<District> dicts = db.Districts.ToList();
-            IEnumerable<SelectListItem> items = 
+            IEnumerable<SelectListItem> items =
                 db.Districts.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.DistrictName });
 
 
@@ -177,6 +210,11 @@ namespace IMS_MVC.Controllers
         }
     }
 
+    /// <summary>
+    /// This static class is conveniently and effectively borrowed from this website and used 
+    /// by the for building the reports.
+    /// http://www.dotnetfunda.com/articles/show/2655/binding-views-with-anonymous-type-collection-in-aspnet-mvc
+    /// </summary>
     public static class Extensions
     {
         public static ExpandoObject ToExpando(this object anonymousObject)

@@ -313,6 +313,7 @@
     <Content Include="Views\Acc\acc_list_report.cshtml" />
     <Content Include="Views\Man\man_edit_intervention.cshtml" />
     <Content Include="Views\Man\man_list_intervention.cshtml" />
+    <Content Include="Views\Acc\_ViewMonthly.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

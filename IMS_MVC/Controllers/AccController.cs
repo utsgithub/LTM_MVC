@@ -41,7 +41,7 @@ namespace IMS_MVC.Controllers
                 case 1: // Report 1 = Total Costs by Engineer
                     var report1 =
                         from i in interventions
-                            //where i.Status.Equals("Completed") //must implement later
+                        where i.Status.Equals("Completed")
                         group i by i.User.UserName
                         into g
                         select new
@@ -56,7 +56,7 @@ namespace IMS_MVC.Controllers
                 case 2: // Report 2 - Average Costs by Engineer
                     var report2 =
                         from i in interventions
-                            //where i.Status.Equals("Completed") //must implement later
+                        where i.Status.Equals("Completed") 
                         group i by i.User.UserName
                         into g
                         select new
@@ -71,7 +71,7 @@ namespace IMS_MVC.Controllers
                 case 3: // Report 3 - Costs by District
                     var report3 =
                         from i in interventions
-                            //where i.Status.Equals("Completed") //must implement later
+                        where i.Status.Equals("Completed") 
                         group i by i.Client.District
                         into g
                         select new
@@ -81,8 +81,8 @@ namespace IMS_MVC.Controllers
                             TotalCost = ((double)g.Sum(i => i.SetCost)).ToString("N", new CultureInfo("en-US"))
                         }.ToExpando();
 
-                    var GrandTotalLabour = interventions.Sum(x => x.SetLabour); //Where(x => x.Status == "Completed").
-                    var GrandTotalCost = ((double)interventions.Sum(x => x.SetCost)).ToString("N", new CultureInfo("en-US")); //Where(x => x.Status == "Completed").
+                    var GrandTotalLabour = interventions.Where(x => x.Status == "Completed").Sum(x => x.SetLabour); 
+                    var GrandTotalCost = ((double)interventions.Where(x => x.Status == "Completed").Sum(x => x.SetCost)).ToString("N", new CultureInfo("en-US")); //Where(x => x.Status == "Completed").
 
                     List<dynamic> grouped = new List<dynamic>();
                     grouped.Add(report3);
@@ -105,7 +105,7 @@ namespace IMS_MVC.Controllers
 
         public ActionResult LoadPartialView(int? district_id)
         {
-            List<IntInfo> interventions = db.IntInfos.ToList();
+            List<IntInfo> interventions = db.IntInfos.Where(x => x.Status == "Completed").ToList();
             var monthly_labour_cost = new List<Tuple<string, int, int>>();
 
             for (int i = 1; i <= 12; i++)

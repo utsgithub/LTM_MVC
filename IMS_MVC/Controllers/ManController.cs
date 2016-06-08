@@ -72,17 +72,13 @@ namespace IMS_MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            // TODO: Manager Approval logic should go here
+
             db.IntInfos.Single(x => x.Id == id).Status = "Approved";
             db.SaveChanges();
 
-            // Todo: Approval logic should go here
-
-
             SendEmailNotification(id);
-
-            //temp
-            db.IntInfos.Single(x => x.Id == id).Status = "Proposed";
-            db.SaveChanges();
 
             return RedirectToAction("man_edit_intervention", new { id = id });
         }
@@ -93,16 +89,13 @@ namespace IMS_MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
+            // Cancellation logic should go here
+
             db.IntInfos.Single(x => x.Id == id).Status = "Cancelled";
             db.SaveChanges();
 
-            // Cancellatoin logic should go here
-
             SendEmailNotification(id);
-
-            //temp
-            db.IntInfos.Single(x => x.Id == id).Status = "Proposed";
-            db.SaveChanges();
 
             return RedirectToAction("man_edit_intervention", new { id = id });
         }

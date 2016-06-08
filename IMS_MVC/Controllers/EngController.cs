@@ -119,6 +119,7 @@ namespace IMS_MVC.Controllers
             }
             return View(client);
         }
+
         public ActionResult eng_detail_intervention(int? id)
         {
             if (id == null)
@@ -158,6 +159,7 @@ namespace IMS_MVC.Controllers
         {
             return View();
         }
+
         public ActionResult eng_list_client()
         {
             string userid = User.Identity.GetUserId();
@@ -165,6 +167,7 @@ namespace IMS_MVC.Controllers
             var clients = db.Clients.Include(c => c.District);
             return View(clients.Where(x => x.DistrictId == user.DistrictId).ToList());
         }
+
         public ActionResult eng_list_intervention()
         {
             var intInfos = db.IntInfos.Include(i => i.Client).Include(i => i.IntType).Include(i => i.User);
@@ -173,8 +176,9 @@ namespace IMS_MVC.Controllers
                 return HttpNotFound();
             }
             string userID = User.Identity.GetUserId();
-            return View(intInfos.Where(x => x.AspNetUserId == userID).ToList());
+            return View(intInfos.Where(x => x.AspNetUserId == userID && !x.Status.Equals("Cancelled")).ToList());
         }
+
         public ActionResult eng_list_int_via_client(int? id)
         {
             if (id == null)
@@ -188,6 +192,49 @@ namespace IMS_MVC.Controllers
             }
             ViewBag.ViewID = id;
             return View(intInfos.Where(x => x.ClientId == id).ToList());
+        }
+
+        public ActionResult eng_status_approve(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // TODO: Engineer Cancel logic should go here
+
+            db.IntInfos.Single(x => x.Id == id).Status = "Approved";
+            db.SaveChanges();
+            
+            return RedirectToAction("eng_detail_intervention", new { id = id });
+        }
+
+        public ActionResult eng_status_cancel(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // TODO: Engineer Cancel logic should go here
+
+            db.IntInfos.Single(x => x.Id == id).Status = "Cancelled";
+            db.SaveChanges();
+            
+            return RedirectToAction("eng_detail_intervention", new { id = id });
+        }
+
+        public ActionResult eng_complete_intervention(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            db.IntInfos.Single(x => x.Id == id).Status = "Completed";
+            db.SaveChanges();
+
+            return RedirectToAction("eng_detail_intervention", new { id = id });
         }
     }
 }

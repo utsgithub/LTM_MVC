@@ -12,8 +12,8 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        
-        
+
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
@@ -88,12 +88,13 @@
                 @Html.HiddenFor(model => model.Status)
             </div>
         </div>
+
         <h2>Quality Management Information</h2>
-        <hr/>
+        <hr />
         <div class="form-group">
             @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Comments, new { @class = "form-control"})
+                @Html.TextAreaFor(model => model.Comments, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -115,11 +116,27 @@
             </div>
         </div>
 
-
         @Html.HiddenFor(model => model.ApprovedByUserId)
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+
+        <h2>Administrative Information</h2>
+        <hr />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+
+                @if (Model.Status.Equals("Approved") || Model.Status.Equals("Completed"))
+                {
+                    @Html.ActionLink("Complete", "eng_complete_intervention", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                }
+                else if(Model.Status.Equals("Proposed"))
+                {
+                    @Html.ActionLink("Approve", "eng_status_approve", new { id = Model.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Cancel", "eng_status_cancel", new { id = Model.Id }, new { @class = "btn btn-danger" })
+                }
             </div>
         </div>
     </div>
